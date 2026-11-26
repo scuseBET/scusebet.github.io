@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow"><title>ScuseBET</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600;700&display=swap">
+<style>
+:root { --bg:#F3F5F6; --surface:#FFFFFF; --surface-2:#EEF2F3; --text:#2B333B; --ink:#0B0C10; --muted:#5E6B74;
+  --accent:#0B7F79; --accent-dim:#45A29E; --line:rgba(11,127,121,.18); --good:#2E8B57; --bad:#C0504D; --push:rgba(43,51,59,.6);
+  --display:"Bebas Neue","Oswald","Arial Narrow",Impact,sans-serif; --body:"Inter","Segoe UI",system-ui,-apple-system,sans-serif; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --bg:#0B0C10; --surface:#1F2833; --surface-2:#243140;
+  --text:#C5C6C7; --ink:#ECEDEE; --muted:#8E959B; --accent:#66FCF1; --accent-dim:#45A29E; --line:rgba(69,162,158,.22);
+  --good:#63C98A; --bad:#E58080; --push:rgba(197,198,199,.6); color-scheme:dark; } }
+:root[data-theme="dark"] { --bg:#0B0C10; --surface:#1F2833; --surface-2:#243140; --text:#C5C6C7; --ink:#ECEDEE; --muted:#8E959B;
+  --accent:#66FCF1; --accent-dim:#45A29E; --line:rgba(69,162,158,.22); --good:#63C98A; --bad:#E58080; --push:rgba(197,198,199,.6); color-scheme:dark; }
+* { box-sizing:border-box; }
+body { margin:0; background:var(--bg); color:var(--text); font:15px/1.6 var(--body);
+  padding-left:max(16px, env(safe-area-inset-left,0px)); padding-right:max(16px, env(safe-area-inset-right,0px)); padding-block:0 40px; }
+.wrap { max-width:760px; margin:0 auto; display:flex; flex-direction:column; gap:22px; }
+header.top { position:sticky; top:0; z-index:10; background:var(--bg); display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between;
+  gap:10px 12px; padding:12px 0; border-bottom:1px solid var(--line); }
+.chips { flex-basis:100%; display:flex; gap:6px; overflow-x:auto; padding-bottom:2px; scrollbar-width:thin; }
+.chips a { flex:none; white-space:nowrap; text-decoration:none; color:var(--text); border:1px solid var(--line); border-radius:999px;
+  font:600 11px/1 var(--body); text-transform:uppercase; letter-spacing:.12em; padding:8px 11px; }
+.chips a:hover { border-color:var(--accent-dim); color:var(--ink); }
+section[id] { scroll-margin-top:118px; }
+.totop { text-align:center; font-size:13px; }
+.logo { font:400 28px/1 var(--display); letter-spacing:.04em; color:var(--ink); text-decoration:none; }
+.logo span { color:var(--accent-dim); }
+nav.pages { display:flex; gap:6px; }
+nav.pages a { font:600 11px/1 var(--body); text-transform:uppercase; letter-spacing:.16em; color:var(--text); text-decoration:none;
+  padding:8px 10px; border:1px solid transparent; border-radius:6px; }
+nav.pages a[aria-current="page"], nav.pages a:hover { border-color:var(--accent-dim); color:var(--ink); }
+.updated { font-size:12px; color:var(--muted); text-transform:uppercase; letter-spacing:.14em; }
+h1 { font:400 clamp(44px, 12vw, 76px)/.92 var(--display); color:var(--accent); margin:6px 0 0; text-transform:uppercase; }
+h2 { font:400 28px/1 var(--display); letter-spacing:.03em; text-transform:uppercase; color:var(--ink); margin:0 0 10px; }
+.lede { margin:0; max-width:60ch; }
+.card { background:var(--surface); border:1px solid var(--line); border-radius:8px; padding:14px 16px; }
+.bets { display:flex; flex-direction:column; gap:10px; }
+.bet { display:grid; grid-template-columns:1fr auto; gap:4px 12px; align-items:start; }
+.bet .who { font-weight:600; color:var(--ink); font-size:16px; }
+.bet .what { font-variant-numeric:tabular-nums; }
+.bet .meta { grid-column:1 / -1; display:flex; flex-wrap:wrap; gap:6px 14px; font-size:13px; color:var(--muted); font-variant-numeric:tabular-nums; }
+.bet .meta b { color:var(--text); font-weight:600; }
+.score { font:400 26px/1 var(--display); color:var(--accent); text-align:right; white-space:nowrap; }
+.score small { display:block; font:600 10px/1.4 var(--body); letter-spacing:.14em; text-transform:uppercase; color:var(--muted); }
+.pill { display:inline-block; font:600 10px/1 var(--body); letter-spacing:.12em; text-transform:uppercase; padding:4px 7px; border-radius:999px; border:1px solid var(--line); color:var(--text); }
+.pill.upcoming { border-color:var(--accent-dim); }
+.pill.final { color:var(--muted); }
+.skip { color:var(--bad); font-weight:600; }
+.empty { text-align:center; padding:26px 16px; }
+.empty b { font:400 30px/1 var(--display); color:var(--ink); display:block; margin-bottom:6px; letter-spacing:.03em; }
+table { width:100%; border-collapse:collapse; font-variant-numeric:tabular-nums; font-size:14px; }
+th { text-align:right; font:600 10px/1.3 var(--body); text-transform:uppercase; letter-spacing:.14em; color:var(--muted); padding:8px 8px; border-bottom:1px solid var(--line); }
+td { text-align:right; padding:9px 8px; border-bottom:1px solid var(--line); }
+th.l, td.l { text-align:left; }
+tbody tr:nth-child(even) td { background:var(--surface-2); }
+.scroll { overflow-x:auto; margin:0 -16px; padding:0 16px; }
+.W { color:var(--good); font-weight:700; } .L { color:var(--bad); font-weight:700; } .P { color:var(--push); font-weight:700; }
+.pos { color:var(--good); } .neg { color:var(--bad); } .dim { color:var(--muted); }
+.totals { display:flex; flex-wrap:wrap; gap:8px 18px; font-size:14px; margin-top:10px; }
+.totals b { color:var(--ink); }
+dl.gloss { display:grid; grid-template-columns:max-content 1fr; gap:10px 16px; margin:0; }
+dl.gloss dt { font-weight:700; color:var(--ink); }
+dl.gloss dd { margin:0; }
+.learn { border-top:1px solid var(--line); padding-top:12px; margin-top:12px; }
+.learn h3 { font:400 20px/1 var(--display); letter-spacing:.04em; color:var(--ink); margin:0 0 8px; }
+.learn ul { margin:8px 0 0; padding-left:18px; }
+footer { font-size:13px; color:var(--muted); border-top:1px solid var(--line); padding-top:14px; display:flex; flex-direction:column; gap:8px; }
+footer b { color:var(--text); }
+a { color:var(--accent-dim); }
+.theme { background:transparent; border:1px solid var(--line); color:var(--text); border-radius:6px; padding:7px 9px; cursor:pointer; font:600 11px/1 var(--body); text-transform:uppercase; letter-spacing:.14em; }
+@media (min-width:720px) { .wrap { gap:28px; } .card { padding:18px 20px; } }
+</style></head><body id="top"><div class="wrap">
+<header class="top"><a class="logo" href="/index.html">SCUSE<span>BET</span></a><nav class="pages"><a href="/index.html">Tonight</a><a href="/records.html">Records</a></nav>
+<button class="theme" id="theme" type="button" aria-label="Switch light or dark">Theme</button>
+</header>
+<div class="updated">Last updated 4:41 PM ET, Nov 26</div>
+<script>(function(){var p=location.pathname,l=p.toLowerCase().replace(/\/+$/,"");var known={"/records":1,"/records.html":1,"/v1":1,"/v1.html":1,"/index.html":1,"":1};if(p!==l&&known[l]!==undefined){location.replace((l||"/")+location.hash);}})();</script><section class="card"><h1>Page not found</h1><p class="lede">That address isn't on ScuseBET. Addresses are lowercase, for example scusebet.github.io/records.html.</p><p><a href="/index.html">Tonight's picks</a> · <a href="/records.html">Records</a></p></section>
+<p class="totop"><a href="#top">Back to top</a></p>
+<footer>
+<div><b>ScuseBET is a personal test project for entertainment only.</b> The picks on this site are simulations: a betting model's
+plays tracked on paper to see how the model performs. They are not betting recommendations, advice or tips, and nothing here asks
+you to place a bet.</div>
+<div><b>Free and non-commercial:</b> no ads, no affiliate links, no paid picks, and nothing here is sold.</div>
+<div><b>21+ only.</b> Projections, not guarantees; past results don't predict future ones. If you choose to bet anywhere, bet only
+what you can afford to lose and follow the laws where you live. If gambling stops being fun, call or text <b>1-800-GAMBLER</b>.</div>
+<div>Data: player projections from BettingPros; market prices from Unabated, CrazyNinja Odds and Kalshi; box scores from ESPN; lineups
+from RotoWire. ScuseBET is independent and not affiliated with or endorsed by any of them, FanDuel or the NBA. No affiliate links.</div>
+</footer>
+</div><script>
+(function(){var b=document.getElementById('theme');if(!b)return;function cur(){return document.documentElement.getAttribute('data-theme');}
+try{var s=localStorage.getItem('sb-theme');if(s)document.documentElement.setAttribute('data-theme',s);}catch(e){}
+b.addEventListener('click',function(){var dark=cur()==='dark'||(!cur()&&matchMedia('(prefers-color-scheme: dark)').matches);
+var n=dark?'light':'dark';document.documentElement.setAttribute('data-theme',n);try{localStorage.setItem('sb-theme',n);}catch(e){}});})();
+</script></body></html>
